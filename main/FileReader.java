@@ -62,6 +62,8 @@ public class FileReader {
 				String sReader = sc.nextLine() ;
 				System.out.println(d1.readerSearch(sReader, readerList));
 				break;
+			case 0:
+				System.exit(0);
 			}
 		}catch(NumberFormatException e) {
 			System.out.println(e);
@@ -73,16 +75,7 @@ public class FileReader {
 
 	// ----------------------------Comparator
 
-	public static class BookComparator implements Comparator<Book> {
-
-		public int compare(Book b1, Book b2) {
-			String titleOne = b1.getTitle();
-			String titleTwo = b2.getTitle();
-			return titleOne.compareTo(titleTwo);
-		}
-
-	}
-	
+		
 			
 }
 

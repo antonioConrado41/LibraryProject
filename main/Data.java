@@ -95,16 +95,16 @@ public class Data {
 	public ArrayList<Book> sortBooksByTitle(ArrayList<Book> books) {
 
 		for (int i = 0; i < books.size(); i++) {
-			for (int j = 0; j < books.size() - 1; j++) {
-				if (books.get(j).getTitle().compareTo(books.get(j).getTitle()) > 0) {
-					Book temp = books.get(j);
-					books.add(j, books.get(j + 1));
-					books.add(j + 1, temp);
+			for (int j = i + 1; j < books.size(); j++) {
+				if (books.get(j).getTitle().compareTo(books.get(i).getTitle()) < 0) {
+					Book temp = books.get(i);
+					books.set(i, books.get(j));
+					books.set(j,  temp);
+					
 				}
 			}
-		}
-		return books;
 	}
+		return books;}
 
 	// ------------------------------sortBookById
 	public ArrayList<Book> sortBooksById(ArrayList<Book> books) {
