@@ -35,7 +35,9 @@ public class FileReader {
 		"Press 3 - List all books by author name alphabetical order." + "\n" + 
 		"Press 4 - Search for a specific reader by name and/or ID" + "\n" +
 		
-		"Press 4 - List all users by alphabetical and/or ID order." + "\n" +
+		"Press 5 - List all users by alphabetical order" + "\n" +
+		"Press 5 - List all users by ID order" + "\n" +
+		
 		"Press 5 - Register that a reader has borrowed a book." + "\n" +
 		"Press 6 - Register that a reader has returned a book." + "\n" +
 		"Press 7 - For a specific reader, list the books that they have borrowed." + "\n" +
@@ -55,12 +57,16 @@ public class FileReader {
 				break;
 			case 3: 
 				System.out.println("List all books by author name alphabetical order");
-				//In construction 
+				System.out.println(d1.sortBooksByAuthorName(bookList));
 				break;
 			case 4: 
 				System.out.println("Search for a specific reader by name and/or ID");
 				String sReader = sc.nextLine() ;
 				System.out.println(d1.readerSearch(sReader, readerList));
+				break;
+			case 5: 
+				System.out.println("List user by alphabetical order");
+				System.out.println(d1.sortUsersByName(readerList));
 				break;
 			case 0:
 				System.exit(0);

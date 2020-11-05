@@ -89,14 +89,15 @@ public class Data {
 		}
 		return readers;
 	}
-
-	// ------------------------------sortBookByTitle
-
+	
+	//---------------------------------------sortBooksByTitle
 	public ArrayList<Book> sortBooksByTitle(ArrayList<Book> books) {
 
 		for (int i = 0; i < books.size(); i++) {
 			for (int j = i + 1; j < books.size(); j++) {
-				if (books.get(j).getTitle().compareTo(books.get(i).getTitle()) < 0) {
+				if (books.get(j).getTitle().compareTo(books.get(i).getTitle())< 0)
+
+				{
 					Book temp = books.get(i);
 					books.set(i, books.get(j));
 					books.set(j,  temp);
@@ -106,19 +107,63 @@ public class Data {
 	}
 		return books;}
 
-	// ------------------------------sortBookById
-	public ArrayList<Book> sortBooksById(ArrayList<Book> books) {
+	//-------------------------------sortByAuthorName
+	
+	public ArrayList<Book> sortBooksByAuthorName(ArrayList<Book> books) {
+
 		for (int i = 0; i < books.size(); i++) {
-			for (int j = 0; j < books.size() - 1; j++) {
-				if (books.get(j).getID() > books.get(j + 1).getID()) {
-					books.add(j, books.get(j + 1));
-					books.remove(j + 2);
+			for (int j = i + 1; j < books.size(); j++) {
+				if (books.get(j).getAuthor().compareTo(books.get(i).getAuthor())< 0)
+
+				{
+					Book temp = books.get(i);
+					books.set(i, books.get(j));
+					books.set(j,  temp);
+					
 				}
 			}
-		}
-		return books;
 	}
+		return books;}
 
+	
+	// ------------------------------sortBooks
+
+	public ArrayList<Book> sortBooks(ArrayList<Book> books) {
+
+		for (int i = 0; i < books.size(); i++) {
+			for (int j = i + 1; j < books.size(); j++) {
+				if ( (books.get(j).getTitle().compareTo(books.get(i).getTitle())< 0) || 
+						(books.get(j).getAuthor().compareTo(books.get(i).getAuthor()) < 0) )
+
+				{
+					Book temp = books.get(i);
+					books.set(i, books.get(j));
+					books.set(j,  temp);
+					
+				}
+			}
+	}
+		return books;}
+
+	//----------------------------------------sortUsersByName
+	
+		public ArrayList<Reader> sortUsersByName(ArrayList<Reader> users) {
+
+			for (int i = 0; i < users.size(); i++) {
+				for (int j = i + 1; j < users.size(); j++) {
+					if (users.get(j).getName().compareTo(users.get(i).getName())< 0)
+
+					{
+						Reader temp = users.get(i);
+						users.set(i, users.get(j));
+						users.set(j,  temp);
+						
+					}
+				}
+		}
+			return users;}
+
+		
 	// --------------------------------------sortReadersByID
 	public ArrayList<Reader> sortReadersById(ArrayList<Reader> readers) {
 		for (int i = 0; i < readers.size(); i++) {
