@@ -57,37 +57,38 @@ public class Data {
 		}
 		return readers;
 	}
-	
+
 	// -------------------------------------loadBorrows
 	public ArrayList<Borrow> listBorrows(int id) throws FileNotFoundException {
-        FileInputStream file = new FileInputStream("borrows.txt");
-        String strline = "";
-        ArrayList<Borrow> borrows = new ArrayList<Borrow>();
-        ArrayList<Borrow> newList = new ArrayList<Borrow>();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(file))) {
-            strline = br.readLine();
-            while (strline != null) {
-                String[] parts = strline.split(",");
+		FileInputStream file = new FileInputStream("borrows.txt");
+		String strline = "";
+		ArrayList<Borrow> borrows = new ArrayList<Borrow>();
+		ArrayList<Borrow> newList = new ArrayList<Borrow>();
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(file))) {
+			strline = br.readLine();
+			while (strline != null) {
+				String[] parts = strline.split(",");
 
-                borrows.add(new Borrow(Integer.parseInt(parts[0]), parts[1],parts[2]));
-                strline = br.readLine();
-            }
-            for (int i = 0; i < borrows.size(); i++) {
-                if (id == borrows.get(i).readerID) {
-                    newList.add(borrows.get(i));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return newList;
-    }
+				borrows.add(new Borrow(Integer.parseInt(parts[0]), parts[1], parts[2]));
+				strline = br.readLine();
+			}
+			for (int i = 0; i < borrows.size(); i++) {
+				if (id == borrows.get(i).readerID) {
+					newList.add(borrows.get(i));
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return newList;
+	}
 
 	public ArrayList<Book> bookSearch(String s, ArrayList<Book> books) {
 
 		boolean found = false;
 		for (Book b : books) {
-			if (b.getAuthor().equalsIgnoreCase(s) || b.getTitle().equalsIgnoreCase(s)) {
+			if (b.getTitle().toLowerCase().contains(s.trim().toLowerCase()) || b.getAuthor().toLowerCase().contains(s.trim().toLowerCase())) {
+			//if (b.getAuthor().equalsIgnoreCase(s) || b.getTitle().equalsIgnoreCase(s)) {
 				System.out.println(b);
 				found = true;
 			}
@@ -108,7 +109,8 @@ public class Data {
 				System.out.println(r);
 				found = true;
 			}
-			if (r.getName().equalsIgnoreCase(v)) {
+			if(r.getName().toLowerCase().contains(v.trim().toLowerCase())) {
+			//if (r.getName().equalsIgnoreCase(v)) {
 				System.out.println(r);
 				found = true;
 			}
@@ -118,127 +120,59 @@ public class Data {
 		}
 		return readers;
 	}
-	
-	//---------------------------------------sortBooksByTitle
-	public ArrayList<Book> sortBooksByTitle(ArrayList<Book> books) {
 
-		for (int i = 0; i < books.size(); i++) {
-			for (int j = i + 1; j < books.size(); j++) {
-				if (books.get(j).getTitle().compareTo(books.get(i).getTitle())< 0)
-
-				{
-					Book temp = books.get(i);
-					books.set(i, books.get(j));
-					books.set(j,  temp);
-					
-				}
-			}
-	}
-		return books;}
-
-	//-------------------------------sortByAuthorName
-	
-	public ArrayList<Book> sortBooksByAuthorName(ArrayList<Book> books) {
-
-		for (int i = 0; i < books.size(); i++) {
-			for (int j = i + 1; j < books.size(); j++) {
-				if (books.get(j).getAuthor().compareTo(books.get(i).getAuthor())< 0)
-
-				{
-					Book temp = books.get(i);
-					books.set(i, books.get(j));
-					books.set(j,  temp);
-					
-				}
-			}
-	}
-		return books;}
-
-	
-	//----------------------------------------sortReaderByName
-	
-		public ArrayList<Reader> sortReadersByName(ArrayList<Reader> users) {
-
-			for (int i = 0; i < users.size(); i++) {
-				for (int j = i + 1; j < users.size(); j++) {
-					if (users.get(j).getName().compareTo(users.get(i).getName())< 0)
-
-					{
-						Reader temp = users.get(i);
-						users.set(i, users.get(j));
-						users.set(j,  temp);
-						
-					}
-				}
-		}
-			return users;}
-
-		
-	// --------------------------------------sortReadersByID
-	public ArrayList<Reader> sortReadersById(ArrayList<Reader> readers) {
-		for (int i = 0; i < readers.size(); i++) {
-			for (int j = 0; j < readers.size() - 1; j++) {
-				if (readers.get(j).getID() > readers.get(j + 1).getID()) {
-					readers.add(j, readers.get(j + 1));
-					readers.remove(j + 2);
-				}
-			}
-		}
-		return readers;
-	}
-    
 	// --------------------------------------RegisterBorrow
 	public String registerBorrow(String[] returnArray) throws IOException {
 
-        try {
-            BufferedWriter writeBorrow = new BufferedWriter(new FileWriter("borrows.txt", true));
-            writeBorrow.write(returnArray[0] + "," + returnArray[1] + "," + returnArray[2] + "\n");
-            writeBorrow.close();
-        } catch (IOException e) {
-            System.out.println("An error has ocurred");
-            e.printStackTrace();
-        }
+		try {
+			BufferedWriter writeBorrow = new BufferedWriter(new FileWriter("borrows.txt", true));
+			writeBorrow.write(returnArray[0] + "," + returnArray[1] + "," + returnArray[2] + "\n");
+			writeBorrow.close();
+		} catch (IOException e) {
+			System.out.println("An error has ocurred");
+			e.printStackTrace();
+		}
 
-        return "Borrow Registered sucessfully";
-    }
-	
-	// --------------------------------------RegisterReturn
-		public String registerReturn(String[] returnArray) throws IOException {
-
-	        try {
-	            BufferedWriter writeBorrow = new BufferedWriter(new FileWriter("returns.txt", true));
-	            writeBorrow.write(returnArray[0] + "," + returnArray[1] + "," + returnArray[2] + "\n");
-	            writeBorrow.close();
-	        } catch (IOException e) {
-	            System.out.println("An error has ocurred");
-	            e.printStackTrace();
-	        }
-
-	        return "Book Returned sucessfully";
-	    }
-		
-		public ArrayList<Borrow> listBorrowByID(int id) throws FileNotFoundException {
-	        FileInputStream file = new FileInputStream("borrows.txt");
-	        String strline = "";
-	        ArrayList<Borrow> borrows = new ArrayList<Borrow>();
-	        ArrayList<Borrow> newList = new ArrayList<Borrow>();
-	        try (BufferedReader br = new BufferedReader(new InputStreamReader(file))) {
-	            strline = br.readLine();
-	            while (strline != null) {
-	                String[] parts = strline.split(",");
-
-	                borrows.add(new Borrow(Integer.parseInt(parts[0]), parts[1], parts[2]));
-	                strline = br.readLine();
-	            }
-	            for (int i = 0; i < borrows.size(); i++) {
-	                if (id == borrows.get(i).readerID) {
-	                    newList.add(borrows.get(i));
-	                }
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	        return newList;
-	    }
-		
+		return "Borrow Registered sucessfully";
 	}
+
+	// --------------------------------------RegisterReturn
+	public String registerReturn(String[] returnArray) throws IOException {
+
+		try {
+			BufferedWriter writeBorrow = new BufferedWriter(new FileWriter("returns.txt", true));
+			writeBorrow.write(returnArray[0] + "," + returnArray[1] + "," + returnArray[2] + "\n");
+			writeBorrow.close();
+		} catch (IOException e) {
+			System.out.println("An error has ocurred");
+			e.printStackTrace();
+		}
+
+		return "Book Returned sucessfully";
+	}
+
+	public ArrayList<Borrow> listBorrowByID(int id) throws FileNotFoundException {
+		FileInputStream file = new FileInputStream("borrows.txt");
+		String strline = "";
+		ArrayList<Borrow> borrows = new ArrayList<Borrow>();
+		ArrayList<Borrow> newList = new ArrayList<Borrow>();
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(file))) {
+			strline = br.readLine();
+			while (strline != null) {
+				String[] parts = strline.split(",");
+
+				borrows.add(new Borrow(Integer.parseInt(parts[0]), parts[1], parts[2]));
+				strline = br.readLine();
+			}
+			for (int i = 0; i < borrows.size(); i++) {
+				if (id == borrows.get(i).readerID) {
+					newList.add(borrows.get(i));
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return newList;
+	}
+
+}

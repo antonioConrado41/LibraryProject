@@ -48,7 +48,7 @@ public class Reader {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Reader ID: " + ID + " Name: " + name + " Address: " + address;
