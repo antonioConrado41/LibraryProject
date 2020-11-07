@@ -51,6 +51,6 @@ public class Reader {
 	
 	@Override
 	public String toString() {
-		return "Reader ID " + ID + " Name " + name + " Address " + address;
+		return "Reader ID: " + ID + " Name: " + name + " Address: " + address;
 	}
 }

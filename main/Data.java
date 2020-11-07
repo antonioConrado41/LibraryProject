@@ -1,13 +1,16 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import classes.Book;
+import classes.Borrow;
 import classes.Reader;
 
 public class Data {
@@ -126,28 +129,9 @@ public class Data {
 		return books;}
 
 	
-	// ------------------------------sortBooks
-
-	public ArrayList<Book> sortBooks(ArrayList<Book> books) {
-
-		for (int i = 0; i < books.size(); i++) {
-			for (int j = i + 1; j < books.size(); j++) {
-				if ( (books.get(j).getTitle().compareTo(books.get(i).getTitle())< 0) || 
-						(books.get(j).getAuthor().compareTo(books.get(i).getAuthor()) < 0) )
-
-				{
-					Book temp = books.get(i);
-					books.set(i, books.get(j));
-					books.set(j,  temp);
-					
-				}
-			}
-	}
-		return books;}
-
-	//----------------------------------------sortUsersByName
+	//----------------------------------------sortReaderByName
 	
-		public ArrayList<Reader> sortUsersByName(ArrayList<Reader> users) {
+		public ArrayList<Reader> sortReadersByName(ArrayList<Reader> users) {
 
 			for (int i = 0; i < users.size(); i++) {
 				for (int j = i + 1; j < users.size(); j++) {
@@ -176,5 +160,34 @@ public class Data {
 		}
 		return readers;
 	}
+    
+	// --------------------------------------RegisterBorrow
+	public String registerBorrow(String[] returnArray) throws IOException {
 
+        try {
+            BufferedWriter writeBorrow = new BufferedWriter(new FileWriter("borrows.txt", true));
+            writeBorrow.write(returnArray[0] + "," + returnArray[1] + "," + returnArray[2] + "\n");
+            writeBorrow.close();
+        } catch (IOException e) {
+            System.out.println("An error has ocurred");
+            e.printStackTrace();
+        }
+
+        return "Borrow Registered sucessfully";
+    }
+	
+	// --------------------------------------RegisterReturn
+		public String registerReturn(String[] returnArray) throws IOException {
+
+	        try {
+	            BufferedWriter writeBorrow = new BufferedWriter(new FileWriter("returns.txt", true));
+	            writeBorrow.write(returnArray[0] + "," + returnArray[1] + "," + returnArray[2] + "\n");
+	            writeBorrow.close();
+	        } catch (IOException e) {
+	            System.out.println("An error has ocurred");
+	            e.printStackTrace();
+	        }
+
+	        return "Book Returned sucessfully";
+	    }
 }

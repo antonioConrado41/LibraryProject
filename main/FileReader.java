@@ -5,9 +5,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import classes.Book;
+import classes.Borrow;
 import classes.Reader;
 
 public class FileReader {
@@ -23,10 +26,16 @@ public class FileReader {
 		System.out.println("Printing data ----------->");
 		d1.loadFile();
 		
+		Book book10 = new Book(10,"testing","testing");
+		Reader reader10 = new Reader(10,"testing","testing");
+		
+		Borrow b1 = new Borrow(01,book10, reader10, false);
+		System.out.println(b1);
 		//System.out.println(d1.sortBooksById(bookList));
 		//System.out.println(d1.sortReadersById(readerList));
 		
 		Scanner sc = new Scanner(System.in);
+		Boolean loop = true;
 		
 		do {
 		System.out.println(" Welcome to the campus library - How can i help you?");
@@ -34,10 +43,9 @@ public class FileReader {
 		"Press 2 - List all books by title" + "\n" + 
 		"Press 3 - List all books by author name alphabetical order." + "\n" + 
 		"Press 4 - Search for a specific reader by name and/or ID" + "\n" +
-		
 		"Press 5 - List all users by alphabetical order" + "\n" +
-		"Press 5 - List all users by ID order" + "\n" +
-		
+		"Press 6 - List all users by ID order" + "\n" +
+		"/////////////////////////////////////////////in construction \n"+ 
 		"Press 5 - Register that a reader has borrowed a book." + "\n" +
 		"Press 6 - Register that a reader has returned a book." + "\n" +
 		"Press 7 - For a specific reader, list the books that they have borrowed." + "\n" +
@@ -52,37 +60,76 @@ public class FileReader {
 				System.out.println(d1.bookSearch(sBook, bookList));
 				break;
 			case 2: 
-				System.out.println("List all books by title");
+				System.out.println("List of all books by title");
 				System.out.println(d1.sortBooksByTitle(bookList));
 				break;
 			case 3: 
-				System.out.println("List all books by author name alphabetical order");
+				System.out.println("List of all books by author name alphabetical order");
 				System.out.println(d1.sortBooksByAuthorName(bookList));
 				break;
 			case 4: 
-				System.out.println("Search for a specific reader by name and/or ID");
+				System.out.println("Type the reader name and/or ID");
 				String sReader = sc.nextLine() ;
 				System.out.println(d1.readerSearch(sReader, readerList));
 				break;
 			case 5: 
-				System.out.println("List user by alphabetical order");
-				System.out.println(d1.sortUsersByName(readerList));
+				System.out.println("List of users by alphabetical order");
+				System.out.println(d1.sortReadersByName(readerList));
 				break;
+			case 6: 
+				System.out.println("List of users by ID order");
+				System.out.println(d1.sortReadersById(readerList));
+				break;
+			case 7: 
+				System.out.println("Register that a reader has borrowed a book");
+				System.out.println("Type an ID reader");
+				String id = sc.nextLine();
+				System.out.println("Type a book title");
+				String bookTitle = sc.nextLine();
+				
+				DateTimeFormatter dt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+				LocalDateTime now = LocalDateTime.now();
+				String strDate = dt.format(now);
+				
+				String[] returnArray = {id, bookTitle, strDate};
+				d1.registerBorrow(returnArray);
+				break;
+			case 8: 
+				System.out.println("Register that a reader has returned a book");
+				System.out.println("Type an ID reader");
+				String idReader = sc.nextLine();
+				System.out.println("Type a book title");
+				String book = sc.nextLine();
+				
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+				LocalDateTime timeNow = LocalDateTime.now();
+				String strD = dt.format(now);
+				
+				String[] returnA = {idReader, book, strD};
+				d1.registerReturn(returnA);
+				break;
+				System.out.println("IN CONSTRUCTION---------------");
+				break;
+			case 8: 
+				System.out.println("Register that a reader has returned a book");
+				System.out.println("IN CONSTRUCTION---------------");
+				break;
+			case 9: 
+				System.out.println("For a specific reader, list the books that they have borrowed.");
+				System.out.println("IN CONSTRUCTION---------------");
+				break;				
 			case 0:
-				System.exit(0);
+				loop = false;
+				break;
 			}
 		}catch(NumberFormatException e) {
 			System.out.println(e);
 		}
 		
-		}while(true);
+		}while(loop);
 		
 	}
 
-	// ----------------------------Comparator
-
-		
-			
 }
 
 
