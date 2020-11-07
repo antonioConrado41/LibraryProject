@@ -15,7 +15,7 @@ import classes.Reader;
 
 public class FileReader {
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 		
 	
 		Data d1 = new Data();
@@ -29,8 +29,7 @@ public class FileReader {
 		Book book10 = new Book(10,"testing","testing");
 		Reader reader10 = new Reader(10,"testing","testing");
 		
-		Borrow b1 = new Borrow(01,book10, reader10, false);
-		System.out.println(b1);
+		
 		//System.out.println(d1.sortBooksById(bookList));
 		//System.out.println(d1.sortReadersById(readerList));
 		
@@ -45,9 +44,9 @@ public class FileReader {
 		"Press 4 - Search for a specific reader by name and/or ID" + "\n" +
 		"Press 5 - List all users by alphabetical order" + "\n" +
 		"Press 6 - List all users by ID order" + "\n" +
-		"/////////////////////////////////////////////in construction \n"+ 
-		"Press 5 - Register that a reader has borrowed a book." + "\n" +
-		"Press 6 - Register that a reader has returned a book." + "\n" +
+		"Press 7 - Register that a reader has borrowed a book." + "\n" +
+		"Press 8 - Register that a reader has returned a book." + "\n" +
+		"////////////////////////////////////////////////////////////////" +
 		"Press 7 - For a specific reader, list the books that they have borrowed." + "\n" +
 		"Press 0 - EXIT");
 		
@@ -92,7 +91,7 @@ public class FileReader {
 				String strDate = dt.format(now);
 				
 				String[] returnArray = {id, bookTitle, strDate};
-				d1.registerBorrow(returnArray);
+				System.out.println(d1.registerBorrow(returnArray));
 				break;
 			case 8: 
 				System.out.println("Register that a reader has returned a book");
@@ -103,16 +102,10 @@ public class FileReader {
 				
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 				LocalDateTime timeNow = LocalDateTime.now();
-				String strD = dt.format(now);
+				String strD = dtf.format(timeNow);
 				
 				String[] returnA = {idReader, book, strD};
-				d1.registerReturn(returnA);
-				break;
-				System.out.println("IN CONSTRUCTION---------------");
-				break;
-			case 8: 
-				System.out.println("Register that a reader has returned a book");
-				System.out.println("IN CONSTRUCTION---------------");
+				System.out.println(d1.registerReturn(returnA));
 				break;
 			case 9: 
 				System.out.println("For a specific reader, list the books that they have borrowed.");
