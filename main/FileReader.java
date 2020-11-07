@@ -71,7 +71,7 @@ public class FileReader {
 					break;
 				case 7:
 					System.out.println("Register that a reader has borrowed a book");
-					System.out.println("Type an ID reader");
+					System.out.println("Type an reader ID");
 					String id = sc.nextLine();
 					System.out.println("Type a book title");
 					String bookTitle = sc.nextLine();

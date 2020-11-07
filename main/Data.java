@@ -16,7 +16,6 @@ import classes.Reader;
 
 public class Data {
 
-	// ------------------------------loadFile
 	public ArrayList<Book> loadFile() throws FileNotFoundException {
 
 		FileInputStream file = new FileInputStream("books.txt");
@@ -58,31 +57,7 @@ public class Data {
 		return readers;
 	}
 
-	// -------------------------------------loadBorrows
-	public ArrayList<Borrow> listBorrows(int id) throws FileNotFoundException {
-		FileInputStream file = new FileInputStream("borrows.txt");
-		String strline = "";
-		ArrayList<Borrow> borrows = new ArrayList<Borrow>();
-		ArrayList<Borrow> newList = new ArrayList<Borrow>();
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(file))) {
-			strline = br.readLine();
-			while (strline != null) {
-				String[] parts = strline.split(",");
-
-				borrows.add(new Borrow(Integer.parseInt(parts[0]), parts[1], parts[2]));
-				strline = br.readLine();
-			}
-			for (int i = 0; i < borrows.size(); i++) {
-				if (id == borrows.get(i).readerID) {
-					newList.add(borrows.get(i));
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return newList;
-	}
-
+	
 	public ArrayList<Book> bookSearch(String s, ArrayList<Book> books) {
 
 		boolean found = false;
@@ -99,8 +74,7 @@ public class Data {
 		return books;
 	}
 
-	// ---------------------------------------------------searching readers
-
+	
 	public ArrayList<Reader> readerSearch(String v, ArrayList<Reader> readers) {
 
 		boolean found = false;
@@ -121,7 +95,6 @@ public class Data {
 		return readers;
 	}
 
-	// --------------------------------------RegisterBorrow
 	public String registerBorrow(String[] returnArray) throws IOException {
 
 		try {
@@ -136,7 +109,7 @@ public class Data {
 		return "Borrow Registered sucessfully";
 	}
 
-	// --------------------------------------RegisterReturn
+
 	public String registerReturn(String[] returnArray) throws IOException {
 
 		try {
@@ -151,6 +124,7 @@ public class Data {
 		return "Book Returned sucessfully";
 	}
 
+	
 	public ArrayList<Borrow> listBorrowByID(int id) throws FileNotFoundException {
 		FileInputStream file = new FileInputStream("borrows.txt");
 		String strline = "";
