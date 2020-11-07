@@ -22,22 +22,12 @@ public class FileReader {
 
 		ArrayList<Book> bookList = d1.loadFile();
 		ArrayList<Reader> readerList = d1.loadReader();
-		
-		System.out.println("Printing data ----------->");
 		d1.loadFile();
-		
-		Book book10 = new Book(10,"testing","testing");
-		Reader reader10 = new Reader(10,"testing","testing");
-		
-		
-		//System.out.println(d1.sortBooksById(bookList));
-		//System.out.println(d1.sortReadersById(readerList));
-		
 		Scanner sc = new Scanner(System.in);
 		Boolean loop = true;
 		
 		do {
-		System.out.println(" Welcome to the campus library - How can i help you?");
+		System.out.println(" Welcome to the campus library - How can i help you?\n /////////////////////////////////////////////////////////////////");
 		System.out.println ("Press 1 - Search for a specific book by title and/or author name" + "\n" +
 		"Press 2 - List all books by title" + "\n" + 
 		"Press 3 - List all books by author name alphabetical order." + "\n" + 
@@ -46,8 +36,7 @@ public class FileReader {
 		"Press 6 - List all users by ID order" + "\n" +
 		"Press 7 - Register that a reader has borrowed a book." + "\n" +
 		"Press 8 - Register that a reader has returned a book." + "\n" +
-		"////////////////////////////////////////////////////////////////" +
-		"Press 7 - For a specific reader, list the books that they have borrowed." + "\n" +
+		"Press 9 - For a specific reader, list the books that they have borrowed." + "\n" +
 		"Press 0 - EXIT");
 		
 		try {
@@ -109,7 +98,9 @@ public class FileReader {
 				break;
 			case 9: 
 				System.out.println("For a specific reader, list the books that they have borrowed.");
-				System.out.println("IN CONSTRUCTION---------------");
+				System.out.println("Please type the reader ID");
+				String ID = sc.nextLine();
+				System.out.println(d1.listBorrowByID(Integer.parseInt(ID)));
 				break;				
 			case 0:
 				loop = false;
